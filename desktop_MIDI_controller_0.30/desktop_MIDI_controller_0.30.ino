@@ -62,7 +62,7 @@ byte oldActivePot = 0;
 
 int activePotTime = 400;          //Time an active pot stops others from sending MIDI.
 
-byte topNoteStart = 30;
+byte topNoteStart = 30;           //CC number each row starts from.
 byte bottomNoteStart = 75;
 
 #define topRowShift analogRead(A5)
@@ -71,10 +71,6 @@ byte bottomNoteStart = 75;
 
 int topRowBank = 0;    //Levels to display on screen. Zero-indexed.
 int bottomRowBank = 0;
-
-const char *bankRange[18] = {" (30-34)", " (35-39)", " (40-44)", " (45-49)", " (50-54)", " (55-59)", " (60-64)", " (65-69)", " (70-74)",       //Top row control numbers.
-                             " (75-79)", " (80-84)", " (85-89)", " (90-94)", " (95-99)", "(100-104)", "(105-109)", "(110-114)", "(115-119)"    //Bottom row numbers.
-                            };
 
 const byte activityLed = 1;
 const byte midiLed = 2;
@@ -116,7 +112,7 @@ void setup()
   display.setCursor(60, 13);
   display.print("by");
   display.setCursor(18, 24);
-  display.print("Daryl H.  v0.29");
+  display.print("Daryl H.  v0.30");
   display.display();
   delay(3000);
 
@@ -352,7 +348,11 @@ void topShiftPrint()
   display.setCursor(3, 5);
   display.print(topRowBank + 1);
   display.setCursor(14, 5);
-  display.print(bankRange[topRowBank]);
+  display.print(" (");
+  display.print(topNoteStart + (topRowBank * 5));
+  display.print("-");
+  display.print(topNoteStart + (topRowBank * 5) + 4);
+  display.print(")");
   display.display();
 }
 
@@ -365,7 +365,17 @@ void bottomShiftPrint()
   display.setCursor(14, 20);
   display.print("         ");
   display.setCursor(14, 20);
-  display.print(bankRange[bottomRowBank + 9]); //+9 to skip the top row banks in the bankRange array.
+  if (bottomNoteStart + (bottomRowBank * 5) >= 100)     //To keep values printed centred.
+  {
+    display.print("(");
+  }
+  else
+    display.print(" (");
+  
+  display.print(bottomNoteStart + (bottomRowBank * 5));
+  display.print("-");
+  display.print(bottomNoteStart + (bottomRowBank * 5) + 4);
+  display.print(")");
   display.display();
 }
 
