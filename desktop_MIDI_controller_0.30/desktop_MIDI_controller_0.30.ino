@@ -252,15 +252,15 @@ void loop()
           display.setCursor(74, 13);
           if ((p < 5) || (p > 5 && p < 11))
           {
-          display.print(ccNote);
+            display.print(ccNote);
           }
           else if (p == 5)
           {
             display.print("MIC");
           }
           else
-          display.print("VOL");          
-          display.display();
+            display.print("VOL");          
+            display.display();
         }
       }
     }
