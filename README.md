@@ -1,5 +1,3 @@
-# desktop-midi-controller
-
 ## Desktop MIDI controller with bluetooth communication
 <img src="https://user-images.githubusercontent.com/4263412/150361135-68e5ab0b-eb42-4544-bb77-a443eebeb2da.jpg" width="40%"></img>
 
